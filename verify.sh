@@ -6,6 +6,11 @@ if [ ! -d blst/bindings ]; then
     exit 1
 fi
 
+if [ -z "$JAVA_HOME" ]; then
+    JAVAC_PATH=$(readlink -f "$(command -v javac)")
+    export JAVA_HOME="${JAVAC_PATH%/bin/javac}"
+fi
+
 rm -rf verify/gen verify/out
 mkdir -p verify/gen/supranational/blst verify/out
 
@@ -13,8 +18,8 @@ swig -c++ -java -package supranational.blst \
   -outdir verify/gen/supranational/blst \
   -o /dev/null blst/bindings/blst.swg
 
-javac -d verify/out \
+"$JAVA_HOME"/bin/javac -d verify/out \
   verify/gen/supranational/blst/*.java \
   verify/BLSTVerify.java
 
-java -cp verify/out BLSTVerify
+"$JAVA_HOME"/bin/java -cp verify/out BLSTVerify

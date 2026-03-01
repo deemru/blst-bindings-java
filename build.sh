@@ -24,6 +24,12 @@ for cmd in git swig gcc g++ javac jar; do
     fi
 done
 
+if [ -z "$JAVA_HOME" ]; then
+    JAVAC_PATH=$(readlink -f "$(command -v javac)")
+    export JAVA_HOME="${JAVAC_PATH%/bin/javac}"
+    echo "Detected JAVA_HOME=$JAVA_HOME"
+fi
+
 rm -rf blst
 git clone --config core.autocrlf=false --depth 1 --branch "$TAG" https://github.com/supranational/blst blst
 
