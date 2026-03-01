@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.deemru</groupId>
-    <artifactId>blst</artifactId>
+    <artifactId>blst-bindings-java</artifactId>
     <version>${revision}</version>
     <packaging>jar</packaging>
 
